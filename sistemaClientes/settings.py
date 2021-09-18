@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
     'rest_framework',
     'clientesApp'
 ]
@@ -175,3 +176,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = config('STATIC_ROOT')
+MEDIA_URL = '/api/media/'
+MEDIA_ROOT = config('MEDIA_ROOT')

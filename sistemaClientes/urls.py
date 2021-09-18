@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 from clientesApp.urls import clienteRoutes
+from sistemaClientes import settings
+from django.conf.urls.static import static
+from rest_framework.documentation import include_docs_urls
+
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
@@ -24,6 +28,9 @@ urlpatterns = [
     path('api/token-auth/', obtain_jwt_token),
     path('api/refresh-token/', refresh_jwt_token),
     path('api/clientesapp/', include(clienteRoutes.urls)),
+    path('api/documentation/', include_docs_urls(title='API Documentation',
+                                                    description='Documentação dos endpoints do backend',
+                                                    ), name='api-docs'),
 
 
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

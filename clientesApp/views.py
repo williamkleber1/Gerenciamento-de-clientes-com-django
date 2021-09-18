@@ -1,4 +1,3 @@
-from typing_extensions import Required
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -76,6 +75,3 @@ class EnderecoViewSet(viewsets.ModelViewSet):
     authentication_classes = (
         JSONWebTokenAuthentication, SessionAuthentication)
     permission_classes = [DjangoModelPermissions]
-
-    @action(detail=False, methods=['get'])
-    def (self, request):
