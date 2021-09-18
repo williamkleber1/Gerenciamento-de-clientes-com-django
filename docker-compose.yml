@@ -14,8 +14,8 @@ services:
     networks:
       - teste-network
   
-  django:
-        container_name: django
+  django_clientes:
+        container_name: django_clientes
         restart: unless-stopped
         environment:
           DJANGO_SETTINGS_MODULE: 'sistemaClientes.settings'

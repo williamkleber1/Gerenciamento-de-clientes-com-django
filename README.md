@@ -40,7 +40,7 @@ docker-compose up -d
 
 a aplicação estará rodando em :
 ```
-localhost:8000/
+http://0.0.0.0:8000/
 ```
 
 
