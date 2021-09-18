@@ -1,9 +1,9 @@
 # Gerenciamento de clientes com django
  
-![GitHub repo size](https://img.shields.io/github/repo-size/williamkleber1/Gerenciador?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/williamkleber1/Gerenciador?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/williamkleber1/Gerenciador?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/github/issues/williamkleber1/Gerenciador?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/williamkleber1/Gerenciamento-de-clientes-com-django?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/williamkleber1/Gerenciamento-de-clientes-com-django?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/williamkleber1/Gerenciamento-de-clientes-com-django?style=for-the-badge)
+![Bitbucket open issues](https://img.shields.io/github/issues/williamkleber1/Gerenciamento-de-clientes-com-django?style=for-the-badge)
 
 
 <img src="https://leads2b.com/blog/wp-content/uploads/2020/12/capa-Fidelizacao-de-clientes.png" alt="exemplo imagem">
