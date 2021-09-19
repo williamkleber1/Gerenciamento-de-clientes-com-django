@@ -27,6 +27,21 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Clientes
         fields = '__all__'
 
+class CidadeSerializer(serializers.Serializer):
+    assert_id = serializers.PrimaryKeyRelatedField(read_only=True)
+ 
+    def to_representation(self, obj):
+        return{
+                "id_cidade": obj.id_cidade,
+                "nome_cidade": obj.__str__(),
+                "id_uf": obj.id_uf.id_uf
+            }
+
+class BairroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bairros
+        fields = '__all__'
+
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enderecos
@@ -37,3 +52,5 @@ class EnderecoSerializer(serializers.ModelSerializer):
 class AtribuiSerializer(serializers.Serializer):
     id_cliente = serializers.IntegerField(required=True)
     id_endereco = serializers.IntegerField(required=True)
+
+

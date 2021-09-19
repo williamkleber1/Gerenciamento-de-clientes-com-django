@@ -4,5 +4,7 @@ clienteRoutes = routers.DefaultRouter()
 
 clienteRoutes.register(r'users', UserViewSet)
 clienteRoutes.register(r'clientes', ClienteViewSet)
+clienteRoutes.register(r'cidades', CidadesViewSet)
+clienteRoutes.register(r'bairros', BairrosViewSet)
 clienteRoutes.register(r'enderecos', EnderecoViewSet)
 clienteRoutes.register(r'atribui_enderecos', AtribuiViewSet)

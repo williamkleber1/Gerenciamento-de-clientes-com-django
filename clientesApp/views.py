@@ -6,7 +6,12 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 import datetime
 from rest_framework.decorators import action
+from django_filters.rest_framework import DjangoFilterBackend
+
+
+
 from .serializers import *
+from .paginations import CustomPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -49,7 +54,7 @@ class EnderecoViewSet(viewsets.ModelViewSet):
         serializer.save(id_user_alt=self.request.user)
 
 
-
+#View para vincular o cliente a um endereço
 class AtribuiViewSet(viewsets.GenericViewSet):
     queryset = Clientes.objects.all()
     serializer_class = AtribuiSerializer
@@ -60,9 +65,6 @@ class AtribuiViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=['post'])
     def demais(self, request):
         """\nEndpoint para vincular Endereço a um Cliente\n"""
-        serializer = UserSerializer
-        endereco = self.request.query_params.get('id_endereco', None)
-        
       
         try:
             #Ler o endereço que vem no body
@@ -100,7 +102,7 @@ class AtribuiViewSet(viewsets.GenericViewSet):
             cliente = Clientes.objects.get(id_cliente=int(request.data['id_cliente']))
 
             # atualiza o campo principal para false, caso exista alguma instancia
-            Enderecos.objects.filter(id_cliente=cliente, prncipal=True).update(principal=False)
+            Enderecos.objects.filter(id_cliente=cliente, principal=True).update(principal=False)
 
             #vincula o endereço ao cliente
             endereco.id_cliente = cliente
@@ -115,4 +117,72 @@ class AtribuiViewSet(viewsets.GenericViewSet):
         except:
             return Response({'message':'Endereço ou cliente não encontrado'}, status=404)
 
+
+# view com o CRUD de Bairros
+class BairrosViewSet(viewsets.ModelViewSet):
+    queryset = Bairros.objects.all()
+    serializer_class = BairroSerializer
+    pagination_class = CustomPagination
+    authentication_classes = (
+        JSONWebTokenAuthentication, SessionAuthentication)
+    permission_classes = [DjangoModelPermissions]
+
     
+    #método para aplicar filtros de Bairros
+    def get_queryset(self):   
+        bairros = Bairros.objects.all()
+        nome_cidade = self.request.query_params.get(
+            'nome_cidade', None)
+        nome_bairro = self.request.query_params.get(
+            'nome_bairro', None)
+        nome_uf = self.request.query_params.get(
+            'nome_uf', None)
+        regiao = self.request.query_params.get(
+            'regiao', None)
+        
+        if nome_cidade:
+            bairros = bairros.filter(nome_bairro__icontains=nome_bairro)
+
+        if nome_cidade:
+            bairros = bairros.filter(id_cidade__nome_cidade__icontains=nome_cidade)
+
+        if nome_uf:
+            bairros = bairros.filter(id_cidade__id_uf__nome_uf__icontains=nome_uf)
+
+        if regiao:
+            bairros = bairros.filter(id_cidade__id_uf__regiao__icontains=nome_cidade)
+        
+        return bairros.order_by('nome_bairro')
+
+
+# view para listar as cidades, e assim instanciar bairros
+class CidadesViewSet(mixins.ListModelMixin,
+                     viewsets.GenericViewSet):
+    queryset = Cidades.objects.all()
+    serializer_class = CidadeSerializer
+    authentication_classes = (
+        JSONWebTokenAuthentication, SessionAuthentication)
+    permission_classes = [DjangoModelPermissions]
+    pagination_class = CustomPagination
+   
+    #método para aplicar filtros de cidades
+    def get_queryset(self):   
+        cidades = Cidades.objects.all()
+        nome_cidade = self.request.query_params.get(
+            'nome_cidade', None)
+        nome_uf = self.request.query_params.get(
+            'nome_uf', None)
+        regiao = self.request.query_params.get(
+            'regiao', None)
+        
+        if nome_cidade:
+            cidades = cidades.filter(nome_cidade__icontains=nome_cidade)
+
+        if nome_uf:
+            cidades = cidades.filter(id_uf__nome_uf__icontains=nome_cidade)
+
+        if regiao:
+            cidades = cidades.filter(id_uf__regiao__icontains=nome_cidade)
+        
+        return cidades.order_by('nome_cidade')
+
