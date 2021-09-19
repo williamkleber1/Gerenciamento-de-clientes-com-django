@@ -109,3 +109,6 @@ class Enderecos(DadosCadModel):
 
     def __str__(self):
         return self.logradouro + str(self.id_bairro)
+
+
+

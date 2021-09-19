@@ -27,7 +27,7 @@ urlpatterns = [
     path('api/auth/', include('rest_framework.urls')),
     path('api/token-auth/', obtain_jwt_token),
     path('api/refresh-token/', refresh_jwt_token),
-    path('api/clientesapp/', include(clienteRoutes.urls)),
+    path('api/clientesapp/', include(clienteRoutes.urls),name='views'),
     path('api/documentation/', include_docs_urls(title='API Documentation',
                                                     description='Documentação dos endpoints do backend',
                                                     ), name='api-docs'),

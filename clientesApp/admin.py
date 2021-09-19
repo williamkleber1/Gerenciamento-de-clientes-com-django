@@ -5,10 +5,10 @@ class DadosCadForm(admin.ModelAdmin):
     readonly_fields = ['cad_por','alt_por']  
     exclude = ['id_user_cad', 'id_user_alt','dt_alt']
     def cad_por(self, instance):
-        return str(instance.id_user_cad.first_name + ' ' + instance.id_user_cad.last_name) + ' em ' + instance.dt_cad.strftime('%d/%m/%Y')
+        return str(instance.id_user_cad.username ) + ' em ' + instance.dt_cad.strftime('%d/%m/%Y')
 
     def alt_por(self, instance):
-        return str(instance.id_user_alt.first_name + ' ' + instance.id_user_alt.last_name) + ' em ' + instance.dt_alt.strftime('%d/%m/%Y')
+        return str(instance.id_user_alt.username ) + ' em ' + instance.dt_alt.strftime('%d/%m/%Y')
     cad_por.short_description = "Cadastrado por"
     alt_por.short_description = "Alterador por"
 
@@ -52,11 +52,11 @@ class ClienteForm(DadosCadForm):
     fieldsets = (
         ('Dados básicos', {'fields': (('nome', 'cpf', 'sexo',),
                                       ('email', 'id_user', ),
-                                      ('data_nascimento'),)}),
+                                      ('data_nascimento', 'ativo'),)}),
 
         ('Outros', {
             'classes': ('collapse',),
-            'fields':  ('cad_por', 'observacoes', ('alt_por',  'ativo'),), })
+            'fields':  ('cad_por', 'observacoes', ('alt_por',  ),), })
 
     )
 class BairrosForm(admin.ModelAdmin):
