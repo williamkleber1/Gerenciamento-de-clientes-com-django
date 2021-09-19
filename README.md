@@ -42,6 +42,27 @@ a aplicação estará rodando em :
 ```
 http://0.0.0.0:8000/
 ```
+#### Popular Tabelas Ufs, Cidades e Bairros com dados predefinidos( OPCIONAL)
+
+abrir o bash do container do django:
+```
+docker exec -it django_clientes bash
+```
+
+executar o shell do django:
+```
+python manage.py shell
+```
+
+importar a função popular_banco():
+```
+from clientesApp.helper import *
+```
+
+executar a função popular_banco():
+```
+popular_banco()
+```
 
 
 ## 🤝 Colaboradores
