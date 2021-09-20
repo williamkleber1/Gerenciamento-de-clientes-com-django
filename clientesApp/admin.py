@@ -62,8 +62,13 @@ class ClienteForm(DadosCadForm):
 class BairrosForm(admin.ModelAdmin):
     search_fields = ['nome_bairro']
 
+class CidadesForm(admin.ModelAdmin):
+    search_fields = ['nome_cidade']
+    list_display = ['nome_cidade', 'id_uf']
+    list_filter = ['id_uf']
+
 admin.site.register(Clientes, ClienteForm)
 admin.site.register(Enderecos, DadosCadForm)
 admin.site.register(Bairros, BairrosForm)
-admin.site.register(Cidades)
+admin.site.register(Cidades, CidadesForm)
 admin.site.register(Ufs)
