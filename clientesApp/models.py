@@ -5,10 +5,12 @@ from django.contrib.auth.models import User
 sexo_choices = [('M', 'Masculino'), ('F', 'Feminino')]
 
 
-# Create your models here.
+
+
+#Classe abstrata para salvar as datas de criação e edição, e usuário que executou a ação
 class DadosCadModel(models.Model):
     id_user_cad = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='%(class)s_user_cad')
+        User, on_delete=models.CASCADE, related_name='%(class)s_user_cad', null=True, blank=True)
     dt_cad = models.DateField(auto_now_add=True)
     id_user_alt = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True,blank=True, related_name='%(class)s_user_alt')
@@ -17,17 +19,7 @@ class DadosCadModel(models.Model):
     class Meta:
         abstract = True
 
-class Paises(models.Model):
-    id_pais = models.AutoField(primary_key=True)
-    nome_pais = models.CharField(max_length=50)
 
-    class Meta:
-        ordering = ['nome_pais']
-        verbose_name_plural = "paises" 
-        db_table = 'Paises'
-
-    def __str__(self):
-        return self.nome_pais
 
 
 class Ufs(models.Model):
@@ -39,6 +31,7 @@ class Ufs(models.Model):
     class Meta:
         ordering = ['sigla_uf']
         db_table = 'Ufs'
+        verbose_name_plural = 'Ufs'
 
     def __str__(self):
         return self.nome_uf
@@ -52,6 +45,7 @@ class Cidades(models.Model):
     class Meta:
         ordering = ['nome_cidade']
         db_table = 'Cidades'
+        verbose_name_plural = 'Cidades'
 
     def __str__(self):
         return str(self.nome_cidade) + '/'  + str(self.id_uf.nome_uf)
@@ -65,6 +59,7 @@ class Bairros(models.Model):
     class Meta:
         ordering = ['nome_bairro']
         db_table = 'Bairros'
+        verbose_name_plural = 'Bairros'
 
     def __str__(self):
         return self.nome_bairro + ' - ' +self.id_cidade.__str__()

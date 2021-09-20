@@ -179,3 +179,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = config('STATIC_ROOT')
 MEDIA_URL = '/api/media/'
 MEDIA_ROOT = config('MEDIA_ROOT')
+

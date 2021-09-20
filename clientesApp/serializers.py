@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         #fazendo a hash da senha
         instance.set_password(validated_data['password'])
+        instance.username = validated_data['username']
         instance.save()
         return instance
 
@@ -27,9 +28,16 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Clientes
         fields = '__all__'
 
-class CidadeSerializer(serializers.Serializer):
-    assert_id = serializers.PrimaryKeyRelatedField(read_only=True)
- 
+class UfsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ufs
+        fields = '__all__'
+
+class CidadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cidades
+        fields = '__all__'
+        
     def to_representation(self, obj):
         return{
                 "id_cidade": obj.id_cidade,

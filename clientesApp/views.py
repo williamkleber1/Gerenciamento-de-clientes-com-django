@@ -6,7 +6,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 import datetime
 from rest_framework.decorators import action
-from django_filters.rest_framework import DjangoFilterBackend
+from .helper import *
 
 
 
@@ -17,6 +17,7 @@ from .paginations import CustomPagination
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    pagination_class = CustomPagination
     authentication_classes = (
         JSONWebTokenAuthentication, SessionAuthentication)
     permission_classes = [DjangoModelPermissions]
@@ -25,6 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Clientes.objects.all()
     serializer_class = ClienteSerializer
+    pagination_class = CustomPagination
     authentication_classes = (
         JSONWebTokenAuthentication, SessionAuthentication)
     permission_classes = [DjangoModelPermissions]
@@ -41,6 +43,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
 class EnderecoViewSet(viewsets.ModelViewSet):
     queryset = Enderecos.objects.all()
     serializer_class = EnderecoSerializer
+    pagination_class = CustomPagination
     authentication_classes = (
         JSONWebTokenAuthentication, SessionAuthentication)
     permission_classes = [DjangoModelPermissions]
@@ -150,7 +153,7 @@ class BairrosViewSet(viewsets.ModelViewSet):
             bairros = bairros.filter(id_cidade__id_uf__nome_uf__icontains=nome_uf)
 
         if regiao:
-            bairros = bairros.filter(id_cidade__id_uf__regiao__icontains=nome_cidade)
+            bairros = bairros.filter(id_cidade__id_uf__regiao__icontains=regiao)
         
         return bairros.order_by('nome_bairro')
 
@@ -179,10 +182,10 @@ class CidadesViewSet(mixins.ListModelMixin,
             cidades = cidades.filter(nome_cidade__icontains=nome_cidade)
 
         if nome_uf:
-            cidades = cidades.filter(id_uf__nome_uf__icontains=nome_cidade)
+            cidades = cidades.filter(id_uf__nome_uf__icontains=nome_uf)
 
         if regiao:
-            cidades = cidades.filter(id_uf__regiao__icontains=nome_cidade)
+            cidades = cidades.filter(id_uf__regiao__icontains=regiao)
         
         return cidades.order_by('nome_cidade')
 
