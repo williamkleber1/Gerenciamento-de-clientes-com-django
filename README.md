@@ -13,7 +13,7 @@
 ## 📚 Documentação
 
 
-[Github Projects](https://gwilliamkleber1/Gerenciamento-de-clientes-com-django/projects/1)  : Kanbam com as tarefas de implementação, documentação e issues
+[Github Projects](https://gwilliamkleber1/Gerenciamento-de-clientes-com-django/projects/1)  : Kanban com as tarefas de implementação, documentação e issues
 
 
 [Modelo ER](https://github.com/williamkleber1/Gerenciamento-de-clientes-com-django/blob/main/documentation/modelo_er.png) : Modelo de entidade e relacionamento do projeto
